@@ -8,25 +8,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.victorcaio.vacancy_management.modules.company.entities.CompanyEntity;
-import br.com.victorcaio.vacancy_management.modules.company.useCases.CreateCompanyUseCase;
+import br.com.victorcaio.vacancy_management.modules.company.entities.JobEntity;
+import br.com.victorcaio.vacancy_management.modules.company.useCases.CreateJobUseCase;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/company")
-public class CompanyController {
+@RequestMapping("/job")
+public class JobController {
   @Autowired
-  private CreateCompanyUseCase companyUseCase;
+  private CreateJobUseCase createJobUseCase;
 
   @PostMapping("/")
-  public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity) {
-
+  public ResponseEntity<Object> create(@Valid @RequestBody JobEntity jobEntity) {
     try {
-      var createCompany = this.companyUseCase.execute(companyEntity);
+      var createJob = this.createJobUseCase.execute(jobEntity);
 
-      return ResponseEntity.status(HttpStatus.CREATED).body(createCompany);
+      return ResponseEntity.status(HttpStatus.CREATED).body(createJob);
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }
 }
