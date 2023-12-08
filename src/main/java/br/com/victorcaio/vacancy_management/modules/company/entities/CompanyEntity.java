@@ -1,7 +1,6 @@
 package br.com.victorcaio.vacancy_management.modules.company.entities;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
