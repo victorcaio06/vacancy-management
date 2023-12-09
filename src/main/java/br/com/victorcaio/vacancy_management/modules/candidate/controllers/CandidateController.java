@@ -18,7 +18,7 @@ public class CandidateController {
   @Autowired
   private CreateCandidateUseCase createCandidateUseCase;
 
-  @PostMapping()
+  @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
     try {
       var createCandidate = this.createCandidateUseCase.execute(candidateEntity);
@@ -26,6 +26,7 @@ public class CandidateController {
       return ResponseEntity.status(HttpStatus.CREATED).body(createCandidate);
 
     } catch (Exception e) {
+      e.printStackTrace();
       return ResponseEntity.badRequest().body(e.getMessage());
     }
 
