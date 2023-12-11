@@ -12,13 +12,13 @@ import br.com.victorcaio.vacancy_management.modules.company.dto.AuthCompanyDTO;
 import br.com.victorcaio.vacancy_management.modules.company.useCases.AuthCompanyUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/company")
 public class AuthCompanyController {
 
   @Autowired
   private AuthCompanyUseCase authCompanyUseCase;
 
-  @PostMapping("/company")
+  @PostMapping("/auth")
   public ResponseEntity<String> login(@RequestBody AuthCompanyDTO authCompanyDTO) {
     try {
       var token = this.authCompanyUseCase.execute(authCompanyDTO);

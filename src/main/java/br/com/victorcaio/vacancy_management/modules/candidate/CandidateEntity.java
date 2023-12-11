@@ -32,6 +32,7 @@ public class CandidateEntity {
   @Length(min = 8, max = 100)
   private String password;
   private String description;
+  private String curriculum;
 
   @CreationTimestamp
   private LocalDateTime createdAt;

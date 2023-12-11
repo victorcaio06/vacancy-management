@@ -12,12 +12,12 @@ import br.com.victorcaio.vacancy_management.modules.candidate.dto.AuthCandidateR
 import br.com.victorcaio.vacancy_management.modules.candidate.useCases.AuthCandidateUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/candidate")
 public class AuthCandidateController {
   @Autowired
   private AuthCandidateUseCase authCandidateUseCase;
 
-  @PostMapping("/candidate/")
+  @PostMapping("/auth")
   public ResponseEntity<Object> auth(@RequestBody AuthCandidateRequestDTO authCandidateDTO) {
     try {
       var token = this.authCandidateUseCase.execute(authCandidateDTO);
