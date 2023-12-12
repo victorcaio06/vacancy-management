@@ -1,7 +1,6 @@
 package br.com.victorcaio.vacancy_management.security;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

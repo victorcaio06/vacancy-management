@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.victorcaio.vacancy_management.exceptions.CandidateNotFoundException;
-import br.com.victorcaio.vacancy_management.modules.candidate.CandidateEntity;
 import br.com.victorcaio.vacancy_management.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.victorcaio.vacancy_management.modules.candidate.repositories.CandidateRepository;
 
