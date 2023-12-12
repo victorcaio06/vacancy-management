@@ -2,6 +2,7 @@ package br.com.victorcaio.vacancy_management.modules.company.useCases;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.victorcaio.vacancy_management.modules.company.dto.AuthCompanyDTO;
+import br.com.victorcaio.vacancy_management.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.victorcaio.vacancy_management.modules.company.repositories.CompanyRepository;
 
 @Service
@@ -27,7 +29,7 @@ public class AuthCompanyUseCase {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+  public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
     var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(() -> {
       throw new UsernameNotFoundException("Username ou password estão incorretos");
     });
@@ -40,9 +42,21 @@ public class AuthCompanyUseCase {
 
     Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
-    var token = JWT.create().withIssuer("javagas").withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
-        .withSubject(company.getId().toString()).sign(algorithm);
+    var expires_in = Instant.now().plus(Duration.ofHours(2));
 
-    return token;
+    var token = JWT.create()
+      .withIssuer("javagas")
+      .withSubject(company.getId().toString())
+      .withExpiresAt(expires_in)
+      .withClaim("roles",Arrays.asList("COMPANY"))
+      .sign(algorithm);
+
+    var authCompanyResponseDTO = AuthCompanyResponseDTO.builder()
+    .access_token(token)
+    .expires_in(expires_in.toEpochMilli())
+    .build();
+
+
+    return authCompanyResponseDTO;
   }
 }
